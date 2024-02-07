@@ -7,16 +7,10 @@ public class Person {
     private String pesel;
 
     public Person(String name, String surname, int age, String pesel) {
-        try {
-            checkPerson(name, surname);
-            checkPersonAge(age);
-        } catch (NameUndefinedException e) {
-            System.out.println(e.getMessage());
-        }
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.pesel = pesel;
+        setName(name);
+        setSurname(surname);
+        setAge(age);
+        setPesel(pesel);
     }
 
     public String getName() {
@@ -24,10 +18,8 @@ public class Person {
     }
 
     public void setName(String name) {
-        try {
-            checkNameSetter(name);
-        } catch (NameUndefinedException e) {
-            System.out.println(e.getMessage());
+        if (name == null || name.length() < 2) {
+            throw new NameUndefinedException("Blad w imieniu");
         }
         this.name = name;
     }
@@ -37,10 +29,8 @@ public class Person {
     }
 
     public void setSurname(String surname) {
-        try {
-            checkSurnmeSetter(surname);
-        } catch (NameUndefinedException e) {
-            System.out.println(e.getMessage());
+        if (surname == null || surname.length() < 2) {
+            throw new NameUndefinedException("Blad w nazwisku");
         }
         this.surname = surname;
     }
@@ -50,10 +40,8 @@ public class Person {
     }
 
     public void setAge(int age) {
-        try {
-            checkAgeSetter(age);
-        } catch (NameUndefinedException e) {
-            System.out.println(e.getMessage());
+        if (age < 1) {
+            throw new NameUndefinedException("Wiek nie moze byc mniejszy niz 1");
         }
         this.age = age;
     }
@@ -64,35 +52,5 @@ public class Person {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
-    }
-
-    void checkAgeSetter(int age) {
-        if (age < 1) {
-            throw new NameUndefinedException("Wiek nie moze byc mniejszy niz 1");
-        }
-    }
-
-    void checkSurnmeSetter(String surname) {
-        if (surname == null || surname.length() < 2) {
-            throw new NameUndefinedException("Blad w nazwisku");
-        }
-    }
-
-    void checkNameSetter(String name) {
-        if (name == null || name.length() < 2) {
-            throw new NameUndefinedException("Blad w imieniu");
-        }
-    }
-
-    void checkPerson(String name, String surname) {
-        if (name == null || surname == null || name.length() < 2 || surname.length() < 2) {
-            throw new NameUndefinedException("Blad w imieniu lub nazwisku");
-        }
-    }
-
-    void checkPersonAge(int age) {
-        if (age < 1) {
-            throw new NameUndefinedException("Wiek nie moze byc mniejszy niz 1");
-        }
     }
 }
